@@ -20,8 +20,20 @@ export interface TaskItemProps {
   onEdit: (task: Task) => void;
   onStatusChange: (id: string) => void;
 }
+
+export interface TaskListProps {
+  tasks: Task[];
+  onDelete: (id: string) => void;
+  onEdit: (task: Task) => void;
+  onStatusChange: (id: string) => void;
+}
+
 export interface TaskFilterOptions {
-  status: "todo" | "in-progress" | "done";
-  priority: "low" | "medium" | "high";
+  status: "all" | "todo" | "in-progress" | "done";
+  priority: "all" | "low" | "medium" | "high";
   searchText: string;
+}
+export interface TaskFilterProps {
+  filters: TaskFilterOptions;
+  onFilterChange: (filters: TaskFilterOptions) => void;
 }
