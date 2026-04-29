@@ -8,11 +8,11 @@ export const TaskItem = ({
 }: TaskItemProps) => {
   return (
     <div>
-      <h2>{task.title}</h2>
-      <p>{task.description}</p>
-      <p>{task.priority}</p>
-      <p>{task.dueDate}</p>
-      <p>{task.status}</p>
+      <h2>Title: {task.title}</h2>
+      <p>Description: {task.description}</p>
+      <p>Priority: {task.priority}</p>
+      <p>Due date: {task.dueDate}</p>
+
       <select
         value={task.status}
         onChange={(e) => onStatusChange(task.id, e.target.value as TaskStatus)}

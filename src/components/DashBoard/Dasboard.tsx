@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { TaskItem } from "../TaskList/TaskItem";
 import type { Task, TaskStatus } from "../../types";
+import { TaskList } from "../TaskList/TaskList";
 
 const testTasks: Task[] = [
   {
@@ -41,15 +41,12 @@ const Dashboard = () => {
     <div>
       <h1>Task Dashboard</h1>
       <p>Total tasks: {tasks.length}</p>
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-          onStatusChange={handleStatusChange}
-        />
-      ))}
+      <TaskList
+        tasks={tasks}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        onStatusChange={handleStatusChange}
+      />
     </div>
   );
 };
