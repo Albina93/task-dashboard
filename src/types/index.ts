@@ -7,12 +7,25 @@ export interface Task {
   priority: "low" | "medium" | "high";
   dueDate: string;
 }
-
+// form field values while typing
 export interface TaskFormData {
   title: string;
   description: string;
   priority: "low" | "medium" | "high";
   dueDate: string;
+}
+
+// validation error messages
+export interface FormErrors {
+  title?: string;
+  description?: string;
+  priority?: string;
+  dueDate?: string;
+}
+
+// props passed into Taskform
+export interface TaskFormProps {
+  onSubmit: (formData: TaskFormData) => void;
 }
 
 export interface TaskItemProps {

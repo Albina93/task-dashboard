@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type { Task, TaskStatus } from "../../types";
+import type { Task, TaskStatus, TaskFormData } from "../../types";
 import { TaskList } from "../TaskList/TaskList";
-
+import { TaskForm } from "../TaskForm/TaskForm";
 const testTasks: Task[] = [
   {
     id: "1",
@@ -23,6 +23,12 @@ const testTasks: Task[] = [
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState<Task[]>(testTasks);
+
+  // just to test TaskForm renders
+  const handleSubmit = (formData: TaskFormData) => {
+    console.log("Form submitted:", formData);
+  };
+
   const handleStatusChange = (id: string, newStatus: TaskStatus) => {
     setTasks((prev) =>
       prev.map((task) =>
@@ -41,6 +47,7 @@ const Dashboard = () => {
     <div>
       <h1>Task Dashboard</h1>
       <p>Total tasks: {tasks.length}</p>
+      <TaskForm onSubmit={handleSubmit} />
       <TaskList
         tasks={tasks}
         onDelete={handleDelete}
