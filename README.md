@@ -18,28 +18,6 @@
 - Typescript
 - Tailwind CSS
 
-## Project structure
-
-task-dashboard/
-├── src/
-│ ├── components/
-│ │ ├── TaskList/
-│ │ │ ├── TaskList.tsx
-│ │ │ └── TaskItem.tsx
-│ │ ├── TaskForm/
-│ │ │ └── TaskForm.tsx
-│ │ ├── TaskFilter/
-│ │ │ └── TaskFilter.tsx
-│ │ └── Dashboard/
-│ │ └── Dashboard.tsx
-│ ├── types/
-│ │ └── index.ts
-│ ├── utils/
-│ │ └── taskUtils.ts
-│ ├── App.tsx
-├── main.tsx
-└── package.json
-
 ### Interfaces & What it's for..?
 
 - Task - The main task data structure
