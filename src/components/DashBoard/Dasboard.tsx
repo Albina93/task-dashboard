@@ -1,28 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Task, TaskStatus, TaskFormData } from "../../types";
 import { TaskList } from "../TaskList/TaskList";
 import { TaskForm } from "../TaskForm/TaskForm";
-const testTasks: Task[] = [
-  {
-    id: "1",
-    title: "test 1",
-    description: "Just a test",
-    status: "done",
-    priority: "low",
-    dueDate: "2026-01-01",
-  },
-  {
-    id: "2",
-    title: "test 2",
-    description: "Just a test",
-    status: "todo",
-    priority: "high",
-    dueDate: "2026-02-01",
-  },
-];
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState<Task[]>(testTasks);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  // Save tasks to localStorage every time tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]); // <- runs every time tasks array changes
 
   // just to test TaskForm renders
   const handleSubmit = (formData: TaskFormData) => {
