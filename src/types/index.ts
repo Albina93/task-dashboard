@@ -43,7 +43,7 @@ export interface TaskListProps {
 }
 
 export interface TaskFilterOptions {
-  status: TaskStatus;
+  status: "all" | TaskStatus;
   priority: "all" | "low" | "medium" | "high";
   searchText: string;
 }

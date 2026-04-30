@@ -1,12 +1,35 @@
 import { useState, useEffect } from "react";
-import type { Task, TaskStatus, TaskFormData } from "../../types";
+import type {
+  Task,
+  TaskStatus,
+  TaskFormData,
+  TaskFilterOptions,
+} from "../../types";
 import { TaskList } from "../TaskList/TaskList";
 import { TaskForm } from "../TaskForm/TaskForm";
+import { TaskFilter } from "../TaskFilter/TaskFilter";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  const [filters, setFilters] = useState<TaskFilterOptions>({
+    status: "all",
+    priority: "all",
+    searchText: "",
+  });
+
+  const filteredTasks = tasks.filter((task) => {
+    const matchesTheStatus =
+      filters.status === "all" || task.status === filters.status;
+    const matchesThePriority =
+      filters.priority === "all" || task.priority === filters.priority;
+    const matchesTheSearch = task.title
+      .toLowerCase()
+      .includes(filters.searchText.toLocaleLowerCase());
+    return matchesTheStatus && matchesThePriority && matchesTheSearch;
   });
 
   // Save tasks to localStorage every time tasks change
@@ -47,8 +70,9 @@ const Dashboard = () => {
       <h1>Task Dashboard</h1>
       <p>Total tasks: {tasks.length}</p>
       <TaskForm onSubmit={handleSubmit} />
+      <TaskFilter filters={filters} onFilterChange={setFilters} />
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         onDelete={handleDelete}
         onEdit={handleEdit}
         onStatusChange={handleStatusChange}
