@@ -66,9 +66,18 @@ const Dashboard = () => {
     console.log("edit task: ", task);
   };
   return (
-    <div>
-      <h1>Task Dashboard</h1>
-      <p>Total tasks: {tasks.length}</p>
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-4xl mx-auto px-4 py-4"></div>
+      <h1 className="text-2xl font-bold text-gray-800 text-center">
+        Task Dashboard
+      </h1>
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="bg-white rounded-lg shadow p-4 text-center border border-gray-200">
+          <p className="text-3xl font-bold text-blue-500">{tasks.length}</p>
+          <p className="text-sm text-gray-500">Total Tasks</p>
+        </div>
+      </div>
+
       <TaskForm onSubmit={handleSubmit} />
       <TaskFilter filters={filters} onFilterChange={setFilters} />
       <TaskList
