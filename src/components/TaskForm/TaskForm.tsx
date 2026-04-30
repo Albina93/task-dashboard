@@ -8,7 +8,6 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
     priority: "low",
     dueDate: "",
   });
-  // const [errors, setErrors] = useState<FormErrors>({});
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -18,8 +17,29 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
     setFormdata((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [errors, setErrors] = useState<FormErrors>({});
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validate fields
+    const newErrors: FormErrors = {};
+    // check the title is empty or just spaces
+    if (!formdata.title.trim()) {
+      newErrors.title = "Title is required!";
+    }
+    if (!formdata.description) {
+      newErrors.description = "Description is required!";
+    }
+    if (!formdata.dueDate) {
+      newErrors.dueDate = "Due Date is required!";
+    }
+    // if errors exist show them and stop
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // No errors... submit and reset
     onSubmit(formdata);
 
     // Need to be able to reset the form after submitting
@@ -29,6 +49,7 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
       priority: "low",
       dueDate: "",
     });
+    setErrors({}); // clear errors after successful submit
   };
 
   return (
@@ -43,6 +64,7 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
           value={formdata.title}
           onChange={handleChange}
         />
+        {errors.title && <p>{errors.title}</p>}
         {/* Description field */}
         <label>Description</label>
         <textarea
@@ -50,6 +72,7 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
           value={formdata.description}
           onChange={handleChange}
         />
+        {errors.description && <p>{errors.description}</p>}
         {/* Priority field */}
         <label>Priority</label>
         <select
@@ -61,6 +84,7 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
+        {/* Due date */}
         <label>Due date</label>
         <input
           type="date"
@@ -68,6 +92,7 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
           value={formdata.dueDate}
           onChange={handleChange}
         />
+        {errors.dueDate && <p>{errors.dueDate}</p>}
         <button type="submit">Add task</button>
       </form>
     </div>
