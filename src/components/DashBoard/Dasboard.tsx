@@ -26,7 +26,16 @@ const Dashboard = () => {
 
   // just to test TaskForm renders
   const handleSubmit = (formData: TaskFormData) => {
-    console.log("Form submitted:", formData);
+    // console.log("Form submitted:", formData);
+    const newTask: Task = {
+      id: Date.now().toString(), // converts timestamp to string
+      title: formData.title,
+      description: formData.description,
+      priority: formData.priority,
+      dueDate: formData.dueDate,
+      status: "todo",
+    };
+    setTasks((prev) => [...prev, newTask]);
   };
 
   const handleStatusChange = (id: string, newStatus: TaskStatus) => {

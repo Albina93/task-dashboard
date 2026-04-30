@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { TaskFormData, FormErrors, TaskFormProps } from "../../types";
 
 export const TaskForm = ({ onSubmit }: TaskFormProps) => {
@@ -20,8 +20,15 @@ export const TaskForm = ({ onSubmit }: TaskFormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form data: ", formdata);
     onSubmit(formdata);
+
+    // Need to be able to reset the form after submitting
+    setFormdata({
+      title: "",
+      description: "",
+      priority: "low",
+      dueDate: "",
+    });
   };
 
   return (
