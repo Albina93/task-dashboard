@@ -62,6 +62,7 @@ const Dashboard = () => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
     // console.log(id);
   };
+
   const handleEdit = (task: Task) => {
     console.log("edit task: ", task);
   };
